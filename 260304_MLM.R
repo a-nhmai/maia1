@@ -1,3 +1,6 @@
+#260304 Lab: JPL tutorial on MultiLevel Models
+
+
 ##### Libraries #####
 library(tidyverse) # Easily Install and Load the 'Tidyverse' 
 library(cmdstanr) # R Interface to 'CmdStan' 
@@ -12,7 +15,7 @@ theme_set(bayesplot::theme_default(base_family = "sans"))
 ##### Data ##### 
 
 ### Trait data and predictors
-dt <- read_csv("~/2026_Spring/2026_lab/MLM/e120_long_Jan-2026.csv")
+dt <- read_csv("~/mai_a/260304_MLM/e120_long_Jan-2026.csv")
 
 glimpse(dt)
 
@@ -25,6 +28,9 @@ dt1 <- dt |>
   reframe(bio_mean = mean(biomass, na.rm = TRUE),
           sd = sd(biomass, na.rm = TRUE),
           bio_mean_log = log(mean(biomass, na.rm = TRUE)))
+
+glimpse(dt1)
+head(dt1)
 
 
 #running MLM 
