@@ -1,0 +1,49 @@
+#NEXUS
+[R-package APE, Tue Apr 22 08:10:52 2025]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 18;
+	TAXLABELS
+		Elymus_canadensis
+		Andropogon_gerardi
+		Poa_pratensis
+		Koeleria_pyramidata
+		Sorghastrum_nutans
+		Schizachyrium_scoparium
+		Panicum_virgatum
+		Elymus_smithii
+		Quercus_ellipsoidalis
+		Quercus_macrocarpa
+		Lespedeza_capitata
+		Amorpha_canescens
+		Dalea_purpurea
+		Lupinus_perennis
+		Asclepias_tuberosa
+		Monarda_fistulosa
+		Liatris_aspera
+		Achillea_millefolium
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Elymus_canadensis,
+		2	Andropogon_gerardi,
+		3	Poa_pratensis,
+		4	Koeleria_pyramidata,
+		5	Sorghastrum_nutans,
+		6	Schizachyrium_scoparium,
+		7	Panicum_virgatum,
+		8	Elymus_smithii,
+		9	Quercus_ellipsoidalis,
+		10	Quercus_macrocarpa,
+		11	Lespedeza_capitata,
+		12	Amorpha_canescens,
+		13	Dalea_purpurea,
+		14	Lupinus_perennis,
+		15	Asclepias_tuberosa,
+		16	Monarda_fistulosa,
+		17	Liatris_aspera,
+		18	Achillea_millefolium
+	;
+	TREE * UNTITLED = [&R] ((((1:8.153976,2:8.153976):32.07989,(3:14.770621,4:14.770622):25.463245):14.728839,((5:4.467252,6:4.467252):14.063482,7:18.530735):36.431971):80.795363,((8:114.836079,((9:11.776701,10:11.776701):101.869577,(11:63.513799,(12:55.982421,(13:51.852774,14:51.852775):4.129647):7.531378):50.132479):1.189801):8.001373,((15:89.75107,16:89.751069):15.127243,(17:22.989462,18:22.989463):81.888852):17.959137):12.920616);
+END;
