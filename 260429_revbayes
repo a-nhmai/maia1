@@ -1,0 +1,47 @@
+#Experimenting with RevBayes
+
+#######
+#SETUP#
+#######
+
+#Setting up work directory
+cd /Users/maimac/RevBayes/revbayes-v1.4.0/bin
+
+#Launch RevBayes
+~/RevBayes/revbayes-v1.4.0/bin/rb
+
+
+
+
+##################
+#Helpful commands#
+##################
+
+#AM's shortcut
+    #Needs to be edited by user
+        #[text]
+        
+
+#Overall
+    #Help
+        #?dnBeta
+    #Nodes
+        # <-                 | constant node, fixed-valued variable
+        #  ~                 | stochastic node, stochastic variable
+        # :=                 | deterministic variable, variable is detemined by function applied to another variable
+        # node.clamp([data]) | observed/fixed stochastic variable
+        # =                  | inference/non-model variable
+        # for(i in 1:N){...} | plate, replication over a set of variables
+        
+#Distributions
+    #Normal
+        #dnNorm
+    
+#MCMC
+    #Moves
+        #mvSlide([prior_dist], delta = [step_size], tune = true)
+    
+    #Analysis: setting burn-in, observing posterior
+        #[object_name] <- window(m, start = floor([percent_burn_in * nrow(trace)]))
+    
+    

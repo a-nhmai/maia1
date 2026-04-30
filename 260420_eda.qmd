@@ -1,5 +1,127 @@
 ---
 title: "260420_eda"
 format: html
+editor_options: 
+  chunk_output_type: console
 ---
+
+Libraries
+
+```{r}
+#install.packages("lgrdata")
+install.packages("basemaps")
+
+lib_ls <- c("stringr",
+            "dplyr",
+            "ggplot2",
+            "lgrdata",
+            "readxl",
+            "basemaps",
+            "maps",
+            "tidyr")
+
+sapply(lib_ls, library, character.only = TRUE)
+```
+
+Load in data
+
+```{r}
+traits_df <- read.csv("~/mai_a/260417_quercus_data/260419_quercus_occur_gbif/querc_traits_gbif260419.csv")
+coords_df <- read.csv("~/mai_a/260417_quercus_data/260419_quercus_occur_gbif/querc_coords_gbif260419.csv")
+data(choat_precipp50)
+choat_df <- read_excel("260417_quercus_data/41586_2012_BFnature11688_MOESM527_ESM.xls")
+choat_quercus <- choat_df |>
+                   filter(str_detect(Species, "Quercus"))
+```
+
+**EDA**
+
+Mapping out Choat Data
+
+```{r}
+world <- map_data("world")
+
+ggplot() +
+  geom_map(data = world, map = world, 
+           aes(long, lat, map_id = region),
+           color = "darkgrey", fill = "white", linewidth = 0.2)+
+  geom_point(data = choat_quercus, aes(x = Longitude, y = Latitude, 
+                                       color = as.numeric(`ψ50`)), 
+             size = 3) +
+  theme_minimal() +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  scale_color_viridis_c() +
+  labs(title = "Choat et al. (2012) P50 Data: Quercus")
+```
+
+Clean up GBIF for mapping data
+```{r}
+vec <- c(1:2155)
+row_num <- rep(vec, each = 2)
+del_rows <- c(53:68, 234) #all the Peter Reich data that was messed up :D 
+
+# Source - https://stackoverflow.com/a/5831829
+# Posted by Sacha Epskamp, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-04-20, License - CC BY-SA 4.0
+
+'%!in%' <- function(x,y)!('%in%'(x,y))
+
+
+coords_df2 <- coords_df |> 
+                    select(X.1, SpeciesName, DataName, OrigValueStr) |> 
+                    filter(X.1 %!in% del_rows) |>
+                    bind_cols(id = row_num) |> 
+                    mutate(SpeciesID = str_c(SpeciesName, id)) |>
+                    select(-X.1, -id, -SpeciesName) |>
+                    #select(-X.1) |>
+                    pivot_wider(names_from = DataName,
+                               values_from = OrigValueStr) |> 
+                    mutate(SpeciesName = str_extract(SpeciesID, "[A-Za-z ]*")) |>
+                    select(-SpeciesID) |>
+                    mutate(across(Latitude:Longitude, as.numeric))
+
+
+ggplot() +
+  geom_map(data = world, map = world, 
+           aes(long, lat, map_id = region),
+           color = "darkgrey", fill = "white", linewidth = 0.2) +
+  geom_point(data = coords_df2, aes(x = Longitude, y = Latitude), 
+             size = 3, show.legend = FALSE) +
+  theme_minimal() +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())  
+
+```
+
+
+Joining P50 values with occurrence
+```{r}
+choat_occur_df <- choat_quercus |>
+                    select(Species, `ψ50`) |>
+                    right_join(coords_df2, join_by(Species == SpeciesName))
+
+us <- map_data("usa")
+
+ggplot() +
+  geom_map(data = us, map = us, 
+           aes(long, lat, map_id = region),
+           color = "darkgrey", fill = "white", linewidth = 0.2) +
+  geom_point(data = choat_occur_df, 
+             aes(x = Longitude, y = Latitude, color = as.numeric(`ψ50`)), 
+             size = 3) +
+  theme_minimal() +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlim(-150, -50)+
+  ylim(20, 50)
+
+choat_occur_df
+```
 

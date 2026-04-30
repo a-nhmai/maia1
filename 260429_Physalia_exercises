@@ -1,0 +1,31 @@
+#Setting up work directory
+cd /Users/maimac/RevBayes/revbayes-v1.4.0/bin
+
+#Launch RevBayes
+~/RevBayes/revbayes-v1.4.0/bin/rb
+
+
+############################################################
+#https://revbayes.github.io/tutorials/intro/getting_started#
+############################################################
+
+alpha <- 2.0 #fixed variable
+beta <- 4.0 #fixed variable
+M ~ dnGamma(alpha, beta) #stochastic variable
+
+mean_1 <- 0.5
+mean_2 <- 2.0
+sd_1 <- 1.0
+sd_2 <- 1.0
+weight <- 0.5
+M ~ dnBimodalLognormal(mean_1, mean_2, sd_1, sd_2, weight)
+
+lambda <- 1.0
+sigma ~ dnExponential(lambda)
+mu := ln(M) - (sigma^2)/2.0 #deterministic variable, defined by function with another variable
+
+for( i in 1:7 ) {x[i] ~ dnLognormal(mu, sigma)}
+
+#########
+#Day 1.2#
+#########
