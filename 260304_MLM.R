@@ -15,7 +15,7 @@ theme_set(bayesplot::theme_default(base_family = "sans"))
 ##### Data ##### 
 
 ### Trait data and predictors
-dt <- read_csv("~/mai_a/260304_MLM/e120_long_Jan-2026.csv")
+dt <- read_csv("~/maia1/260304_MLM/e120_long_Jan-2026.csv")
 
 glimpse(dt)
 
@@ -83,9 +83,11 @@ summary(model3)
 coef(model3)
 
 
-phy <- read.nexus("~/2026_Spring/2026_lab/MLM/CDR_e120_planted.nex") #var-covar matrix
+phy <- read.nexus("~/maia1/260304_MLM/CDR_e120_planted.nex") #var-covar matrix
 
 A <- ape::vcv.phylo(phy = phy) #transform into var-covar matrix
+
+plot(phy)
 
 model4 <- brm(formula = bio_mean_log ~ Year + 
                 (1 + Year | species) + #random int and slope

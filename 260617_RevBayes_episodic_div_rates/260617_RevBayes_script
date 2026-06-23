@@ -1,0 +1,229 @@
+#RevBayes Episodic Diversification model
+#Anh Mai
+#26 June 2026
+
+##############
+#Launching RB#
+##############
+
+pwd
+cd /Users/mai00099/Software/revbayes-v1.4.0/bin
+~/Software/revbayes-v1.4.0/bin/rb
+
+
+
+
+############################
+#Reading in 'observed' tree#
+############################
+
+setwd("/Users/mai00099/maia1/260617_RevBayes_episodic_div_rates")
+
+T <- readTrees("primates_tree.nex")[1]
+
+
+
+
+##########################
+#Object setting for later#
+##########################
+
+taxa <- T.taxa()
+
+moves = VectorMoves()
+monitors = VectorMonitors()
+
+#helper variable
+    NUM_INTERVALS = 10
+    NUM_BREAKS := NUM_INTERVALS - 1
+
+
+
+
+######################
+#Model specificiation#
+######################
+
+#prior distribution on rates: birth (lambda) and death (mu)
+    #global scale hyperprior acts with global scale parameter 
+    #to set prior on rate variability
+    
+    lamba_global_scale_hyp <- 0.044
+    mu_global_scale_hyp <- 0.044
+    
+    lambda_global_scale ~ dnHalfCauchy(0, 1)
+    mu_global_scale ~ dnHalfCauchy(0, 1)
+
+
+#episodic rates
+    #rates at present is initial rate parameter
+    #rates at present are not correlated to previous rates
+    #because modeling rate-changes happens backwards in time
+    
+    #here integrate prior information about some event affecting
+    #diversification some time before the present
+    
+    
+    
+    #uniform prior between -10 and 10 means rates allowed are between
+    #exp(-10) and exp(10)
+    #exp(-10) basically = 0
+    
+        log_lambda_at_present ~ dnUniform(-10, 10)
+        log_lambda_at_present.setValue(0.0)
+        log_mu_at_present ~ dnUniform(-10, 10)
+        log_mu_at_present.setValue(-1.0)
+    
+    
+    #sliding moves to each parameter
+    
+        moves.append(mvScaleBactrian(log_lambda_at_present, weight = 5))
+        moves.append(mvScaleBactrian(log_mu_at_present, weight = 5))
+    
+    #non-centered parameterization
+        #specify the log-scale changes in rate between intervals
+        #these are then assembled into vector of rates by adding values
+        #and then exponentiating
+        
+        #additionally, the horseshoe distribution requires local scale parameters
+        #this allows local adaptivity; rates can rapidly vary in some intervals
+        #and be nearly constant in others
+        
+            for(i in 1:NUM_BREAKS) {
+            sigma_lambda[i] ~ dnHalfCauchy(0, 1)
+            sigma_mu[i] ~ dnHalfCauchy(0, 1)
+            
+            #initializing values to a reasonable number
+            sigma_lambda[i].setValue(runif(1, 0.005, 0.1)[1])
+            sigma_mu[i].setValue(runif(1, 0.005, 0.1)[1])
+            
+            #non-centralized parameterization of horseshoe
+            delta_log_lambda[i] ~ dnNormal(mean = 0, 
+                                  sd = sigma_lambda[i] * lambda_global_scale * lamba_global_scale_hyp)
+            delta_log_mu[i] ~ dnNormal(mean = 0,
+                              sd = sigma_mu[i] * mu_global_scale * mu_global_scale_hyp)
+            
+            }
+
+
+    #assembling rates; using global and local scales, rate at present, and log-changes
+        #delta values = differences in log-scale rates; need to sum them to exponentiate
+        #function fnassembleContinuousMRF() carries out summation and exponentiation
+        
+        lambda := fnassembleContinuousMRF(log_lambda_at_present,
+                                          delta_log_lambda,
+                                          initialValueIsLogScale = TRUE,
+                                          order = 1)
+        mu := fnassembleContinuousMRF(log_mu_at_present,
+                                      delta_log_mu,
+                                      initialValueIsLogScale = TRUE,
+                                      order = 1)
+                                      
+    #MCMC samplers/moves
+        #elliptical slide samples that works on log-changes +
+        #Gibbs sampler for global and local slices
+        #recommended swap move that works on both
+        
+        #move all parameters in one go
+            moves.append(mvEllipticalSliceSamplingSimple(delta_log_lambda,
+                                                  weight = 5,
+                                                  tune = FALSE))
+            moves.append(mvEllipticalSliceSamplingSimple(delta_log_mu,
+                                                  weight = 5,
+                                                  tune = FALSE))
+                                                  
+        #move all field hyperparameters in one go
+            moves.append(mvHSRFHyperpriorsGibbs(lambda_global_scale,
+                                                sigma_lambda,
+                                                delta_log_lambda,
+                                                lambda_global_scale_hyperprior,
+                                                propGlobalOnly = 0.75m
+                                                weight = 10))
+            moves.append(mvHSRFHyperiorsGibbs(mu_global_scale,
+                                                sigma_mu,
+                                                delta_log_mu,
+                                                mu_global_scale_hyperprior,
+                                                propGlobalOnly = 0.75,
+                                                weight = 10))
+                                                
+        #swap moves to exchange adjacent delta, sigma pairs
+            moves.append(mvHSRFIntervalSwap(delta_log_lambda,
+                                              sigma_lambda,
+                                              weight = 5))
+            moves.append(mvHSRFIntervalSwap(delta_log_mu,
+                                              sigma_mu,
+                                              weight = 5))
+        
+    #Setting up time intervals
+        #model formulation assumes even spacing of time points
+        
+        #creation of vector for times to give to B-D model
+            interval_times <- abs(T.rootAge() * seq(1, NUM_BREAKS, 1))
+            
+            
+    #Accounting for incomplete taxon sampling
+        #our sample includes 233/367 living primate species
+        #accounting for this can look like setting a sampling parameter
+        #as a constant node with a value of 233/367.
+        #as almost all species have been sampled, we assume uniform taxon sampling
+        
+        rho <- T.ntips()/367
+            
+
+############################
+#Initializing the time tree#
+############################
+
+    #specifying full episodic birth-death model
+        timetree ~ dnEpisodicBirthDeath(rootAge = T.rootAge(),
+                                        lambdaRates = lambda,
+                                        lambdaTimes = interval_times,
+                                        muRates = mu,
+                                        muTimes = interval_times,
+                                        rho = rho,
+                                        samplingStrategy = "uniform",
+                                        condition = "survival",
+                                        taxa = taxa)
+                                        
+    #we want to explicitly condition on survival
+        #can also change this condition to time of the process or number of sampled taxa
+        
+        #attach the data to timetree variable
+           timetree.clamp(T)
+           
+        #create workspace object of whole model
+            div_model = model(lambda)
+        
+
+#######################        
+#Running MCMC analysis#
+#######################        
+
+    #initialize model monitor; creates new monitor variable that outputs
+    #the states for all model parameters when passed into an MCMC function
+          monitors.append(mnModel(filename = "output/primates_EBD.log",
+                                  printgen = 10,
+                                  separator = TAB))
+                                  
+    #creation of monitors: 
+          #one for each vector of speciation and extinction
+          #and for each speciation and extinction rate epoch (when epoch ends)
+          #setting up for separate storage so we can plot later
+          
+          monitors.append( mnFile(filename="output/primates_EBD_lambda_rates.log",printgen=10, separator = TAB, lambda) )
+          monitors.append( mnFile(filename="output/primates_EBD_lambda_times.log",printgen=10, separator = TAB, interval_times) )
+          monitors.append( mnFile(filename="output/primates_EBD_mu_rates.log",printgen=10, separator = TAB, mu) )
+          monitors.append( mnFile(filename="output/primates_EBD_mu_times.log",printgen=10, separator = TAB, interval_times) )
+                      
+    #create screen monitor; reports states of specified variables to screen
+          monitors.append( mnScreen(printgen=1000, mu_global_scale, lambda_global_scale) )
+   
+    #initializing and running MCMC
+          div_mcmc = mcmc(div_model,
+                          monitors,
+                          moves,
+                          nruns = 2,
+                          combine = "mixed")
+                          
+          div_mcmc.run(generations = 50000,
+                        tuningInterval = 200)
