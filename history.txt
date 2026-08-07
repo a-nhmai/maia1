@@ -1,0 +1,100 @@
+pwd()
+wd()
+data_cytb = readDiscreteCharacterData("/maia1/260430_revbayes_dat
+data_cytb = readDiscreteCharacterDat
+data_cytb = readDiscreteCharacterData("/maia1/260430_revbayes_data/cytb.nex)
+data_cytb = readDiscreteCharacterData("/maia1/260430_revbayes_data/cytb.nex")
+data_cytb = readDiscreteCharacterData("~/maia1/260430_revbayes_data/cytb.nex")
+data_cytb = readDiscreteCharacterData("~/Software/revbayes-v1.4.0/260430_revbayes_data/cytb.nex")
+data_cytb = readDiscreteCharacterData("/Software/revbayes-v1.4.0/260430_revbayes_data/cytb.nex")
+data_cytb = readDiscreteCharacterData("/Software/revbayes-v1.4.0/260430_revbayes_data_cytb.nex")
+setwd(
+"Software/revbayes-v1.4.0")
+setwd("Software/revbayes-v1.4.0/")
+setwd("/Software/revbayes-v1.4.0/260430_revbayes_data/)
+setwd("/Software/revbayes-v1.4.0/260430_revbayes_data/")
+setwd("Software/revbayes-v1.4.0/260430_revbayes_data/")
+setwd("Software/")
+setwd("Software/revbayes-v1.4.0"))
+setwd("Software/revbayes-v1.4.0")
+getwd()
+setwd("/Users/mai00099/Software/revbayes-v1.4.0")
+data
+#reconstructing phylogeny of genus *Bufo* (toads)
+data_cytb = readDiscreteCharacterData("cytb.nex")
+data_16s = readDiscreteCharacterData("16s.nex")
+#concatenate into one alignment
+data = concatenate(data_cytb, data_16s)
+#useful information about the data
+taxa = data.taxa()
+num_taxa = data.ntaxa()
+num_branches = 2 * num_taxa - 3
+num_sites = data.nchar()
+#############################
+#PARTS OF PHYLOGENETIC MODEL#
+#############################
+#1. topology
+#2. branch lengths
+#3. substitution model
+######
+#MCMC#
+######
+#movement proposal vector
+    #empty vector
+      move_index = 0
+      
+#specify tree toplogy
+    #assume uniform prior, aka all trees have same prior topology
+    #assign large weight to topology
+        #more difficult parameter to estimate
+        #acceptance rate is lower
+        
+        topology ~ dnUniformTopology(taxa)
+    #types of movements used
+        #Nearest-Neighbor Interchange (NNI) and 
+        #Subtree Pruning and Regrafting (SPR)
+        
+        moves[++move_index] = mvNNI(topology, weight = 10.0)
+      setwd("/Users/mai00099/Software/revbayes-v1.4.0/260430_revbayes_data")
+pwd
+pwd()
+getwd()
+cd /Users/mai00099/maia1/260617_RevBayes_episodic_div_rates
+cd /Users/mai00099/maia1/260617_RevBayes_episodic_div_rates~
+cd /Users/mai00099/maia1/260617_RevBayes_episodic_div_rates
+cd ~/maia1/260617_RevBayes_episodic_div_rates
+pwd
+printwd()
+pwd()
+wd
+getwd
+getwd()
+cd /Users/mai00099/maia1
+setwd(/Users/mai00099/maia1/260617_RevBayes_episodic_div_rates)
+setwd(Users/mai00099/maia1/260617_RevBayes_episodic_div_rates)
+setwd(Users/mai00099)
+setwd(/Users/mai00099)
+cd
+cd()
+setwd()
+?setwd()
+setwd("~Users/mai00099/maia1/260617_RevBayes_episodic_div_rates"")
+setwd("~Users/mai00099/maia1/260617_RevBayes_episodic_div_rates")
+setwd("~/Users/mai00099/maia1/260617_RevBayes_episodic_div_rates")
+setwd("~/mai00099/maia1/260617_RevBayes_episodic_div_rates")
+setwd("~/Users/mai00099/maia1/260617_RevBayes_episodic_div_rates")
+?setwd()
+setwd("~/Users")
+getwd()
+setwd("/Users/")
+printwd()
+getwd
+getwd()
+setwd("/Users/~/maia1/260617_RevBayes_episodic_div_rates/")
+setwd("/Users/maia1/260617_RevBayes_episodic_div_rates/")
+setwd("/Users/maia1/")
+getwd()
+setwd("/Users/maia1")
+setwd("/Users/mai0099/maia1/")
+setwd("/Users/mai00099/maia1/")
+setwd("/Users/mai00099/maia1/260617_RevBayes_episodic_div_rates")

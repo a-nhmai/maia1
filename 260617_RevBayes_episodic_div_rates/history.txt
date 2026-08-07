@@ -1,0 +1,100 @@
+                                          delta_log_lambda,
+                                          initialValueIsLogScale = TRUE,
+                                          order = 1)
+        mu := fnassembleContinuousMRF(log_mu_at_present,
+                                      delta_log_speciation,
+                                      intialValueIsLogScale = TRUE,
+                                      order = 1)
+        mu := fnassembleContinuousMRF(log_mu_at_present,
+                                      delta_log_mu,
+                                      intialValueIsLogScale = TRUE,
+                                      order = 1)
+        mu := fnassembleContinuousMRF(log_mu_at_present,
+                                      delta_log_mu,
+                                      initialValueIsLogScale = TRUE,
+                                      order = 1)
+mu
+?fnassembleContinuousMRF()
+#move all parameters in one go
+            moves.append(mvEllipticalSliceSamplingSimple(delta_log_lambda,                                                  weight = 5,                                                  tune = FALSE))            moves.append(mvEllipticalSliceSamplingSimple(delta_log_mu,                                                  weight = 5,                                                  tune = FALSE))                                                          #move all field hyperparameters in one go            moves.append(mvHSRFHyperpriorsGibbs(lambda_global_scale,                                                sigma_lambda,                                                delta_log_lambda,                                                lambda_global_scale_hyperprior,                                                propGlobalOnly = 0.75m                                                weight = 10))            moves.append(mvHSRFHyperiorsGibbs(mu_global_scale,                                                 change adjacent delta, sigma pairs
+            moves.append(mvHSRFIntervalSwap(delta_log_lambda,
+moves.append(mvHSRFIntervalSwap(delta_log_lambda,
+                                              sigma_lambda,
+                                              weight = 5))
+            moves.append(mvHSRFIntervalSwap(delta_log_mu,
+                                              sigma_mu,
+                                              weight = 5))
+        
+moves.append(mvHSRFIntervalSwap(delta_log_mu,
+                                              sigma_mu,
+                                              weight = 5))
+?abs()
+T.rootAge()
+seq(1:2)
+?seq
+seq(1, NUM_BREAKS, 1)
+seq(-0.5, 10.5, 2)
+NUM_BREAKS
+abs(T.rootAge() * seq(1, NUM_BREAKS, 1))
+interval_times <- abs(T.rootAge() * seq(1, NUM_BREAKS, 1))
+s
+rho <- T.ntips()/367
+rho
+T.ntips()
+233/367
+taxa
+dnEpisodicBirthDeath
+        timetree ~ dnEpisodicBirthDeath(rootAge = T.rootAge(),
+                                        lambdaRates = lambda,
+                                        lambdaTimes = interval_times,
+                                        muRates = mu,
+                                        muTimes = interval_times,
+                                        rho = rho,
+                                        samplingStrategy = "uniform",
+                                        condition = "survival",
+                                        taxa = taxa)
+timetree.clamp(T)
+speciation
+lambda
+            div_model = model(lambda)
+div_model
+          monitors.append(mnModel(filename = "output/primates_EBD.log",
+                                  printgen = 10,
+                                  separator = TAB))
+          monitors.append( mnFile(filename="output/primates_EBD_speciation_rates.log",printgen=10, separator = TAB, speciation) )
+          monitors.append( mnFile(filename="output/primates_EBD_speciation_times.log",printgen=10, separator = TAB, interval_times) )
+          monitors.append( mnFile(filename="output/primates_EBD_extinction_rates.log",printgen=10, separator = TAB, extinction) )
+          monitors.append( mnFile(filename="output/primates_EBD_extinction_times.log",printgen=10, separator = TAB, interval_times) )
+ 
+          monitors.append( mnFile(filename="output/primates_EBD_lambda_rates.log",printgen=10, separator = TAB, speciation) )
+          monitors.append( mnFile(filename="output/primates_EBD_lambda_times.log",printgen=10, separator = TAB, interval_times) )
+          monitors.append( mnFile(filename="output/primates_EBD_mu_rates.log",printgen=10, separator = TAB, extinction) )
+          monitors.append( mnFile(filename="output/primates_EBD_mu_times.log",printgen=10, separator = TAB, interval_times) )
+ 
+          monitors.append( mnScreen(printgen=1000, mu_global_scale, lambda_global_scale) )
+    #initializing and running MCMC
+          div_mcmc = mcmc(div_model,
+                          monitors,
+                          moves,
+                          nruns = 2,
+                          combine = "mixed")
+                          
+          div_mcmc.run(generations = 50000,                        tuningInterval = 200)
+ monitors.append( mnFile(filename="output/primates_EBD_lambda_rates.log",printgen=10, separator = TAB, lambda) )
+          monitors.append( mnFile(filename="output/primates_EBD_lambda_times.log",printgen=10, separator = TAB, interval_times) )
+          monitors.append( mnFile(filename="output/primates_EBD_mu_rates.log",printgen=10, separator = TAB, mu) )
+          monitors.append( mnFile(filename="output/primates_EBD_mu_times.log",printgen=10, separator = TAB, interval_times) )
+                      
+    #create screen monitor; reports states of specified variables to screen
+          monitors.append( mnScreen(printgen=1000, mu_global_scale, lambda_global_scale) )
+   
+    #initializing and running MCMC
+          div_mcmc = mcmc(div_model,
+                          monitors,
+                          moves,
+                          nruns = 2,
+                          combine = "mixed")
+                          
+          div_mcmc.run(generations = 50000,
+                        tuningInterval = 200)
+q()
