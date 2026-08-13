@@ -16,7 +16,11 @@ sapply(lib_ls, library, character.only = TRUE)
 
 #Loading in dfs
     try_df <- read.delim("~/Documents/Data/260812_TRY_data.txt")
-spp_ref <- read.csv("~/maia1/260807_FIA_exploration/REF_SPECIES.csv")
+    try_df2 <- read.delim("~/Documents/Data/260813_TRY_data.txt") #vessel morphology traits that got left out
+    
+    try_df <- try_df |> bind_rows(try_df2)
+    
+  spp_ref <- read.csv("~/maia1/260807_FIA_exploration/REF_SPECIES.csv")
 
 #Cleaning and filtering for only angiosperms/hardwoods
 angio_ls <- spp_ref |>
@@ -27,7 +31,7 @@ angio_ls <- angio_ls |>
 
       #Lists for filtering
       angio_ls2 <- angio_ls[,4]
-      trait_ls <- c(4083, 3117,12, 59, 6, 21077, 23257, 1080, 926, 132, 3568, 18, 889, 773, 3507, 24)
+      trait_ls <- c(4083, 3117,12, 59, 6, 21077, 23257, 1080, 926, 132, 3568, 18, 889, 773, 3507, 24, 169, 281, 1177)
       
       #Filtering species and for specific traits
       try_angio <- try_df |>
