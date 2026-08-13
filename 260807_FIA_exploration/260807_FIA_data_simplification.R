@@ -8,7 +8,7 @@ library(dplyr)
 library(janitor)
 
 #Data
-fia_rd <- read.csv("~/Downloads/MN_TREE.csv") #rd = raw data
+fia_rd <- read.csv("~/maia1/260807_FIA_exploration/MN_TREE.csv") #rd = raw data
 head(fia_rd)
 
 fia_rd <- clean_names(fia_rd)

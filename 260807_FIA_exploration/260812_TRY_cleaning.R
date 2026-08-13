@@ -15,7 +15,7 @@ lib_ls <- c("dplyr",
 sapply(lib_ls, library, character.only = TRUE)
 
 #Loading in dfs
-    #try_df <- read.delim("~/maia1/260807_FIA_exploration/260811_TRY_df/51642.txt")
+    try_df <- read.delim("~/Documents/Data/260812_TRY_data.txt")
 spp_ref <- read.csv("~/maia1/260807_FIA_exploration/REF_SPECIES.csv")
 
 #Cleaning and filtering for only angiosperms/hardwoods
@@ -40,6 +40,4 @@ angio_ls <- angio_ls |>
 
 #Writing clean csv
 write.csv(try_angio, "~/maia1/260807_FIA_exploration/try_angio_clean.csv")
-
-
 
