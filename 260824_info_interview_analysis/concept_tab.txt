@@ -1,0 +1,18 @@
+"term_concept" "count" "notes"
+"1" "Wildlife" 9 "Loons, moose, deer, earthworms; Trees providing shade for trout habitat in riparian systems"
+"2" "Fire" 8 "Prescribed fire, fire-resistant, cultural fires, minimizing burns; Balsam on landscapes more often because of fire suppression"
+"3" "Wind" 8 "Derechos"
+"4" "‘Wild’ and ‘natural’" 7 "Non-mowed, non-turf, little management, self-sufficiency; Wild genetics rather than cultivars -Missy; Gene flow"
+"5" "Assisted migration" 6 "Planting southern species in a more northern range, range shifts; paper birch seems to be shifting out"
+"6" "Recreation" 6 "Safety"
+"7" "Disease/pests" 6 "Spongy moth, oak forests, oak wilt, EAB, Spruce spudworm, Seed genetics associated with disease resistance"
+"8" "Resilient" 6 "Resiliency, connectivity of the landscape"
+"9" "Species composition/diversity" 6 NA
+"10" "Seeds" 5 "In conjunction with assisted migration and species composition; Seed genetics; Harder to find seeds at peak ripeness and seed coverage across the landscape is patchy, pockets of seed failures"
+"11" "Forest regeneration (young forests survival and old forest maintenance)" 5 "Understory regeneration, dying out of overstory"
+"12" "Indigenous and cultural importance" 5 NA
+"13" "Forest health" 3 "Productivity, matching tree species to the type of site, in conjunction with regeneration"
+"14" "Invasive species" 2 "‘Undesirables’"
+"15" "Shifting phenology" 2 NA
+"16" "Continuous tree canopy" 1 NA
+"17" "Tree changes over time" 1 "Less tight grains: growth is slower and less uniform, fewer rings per a given inch by a great magnitude; clear cutting"

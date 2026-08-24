@@ -1,0 +1,19 @@
+This is a file to log what files correspond to what project(s).
+
+This file was created by Anh Mai to organize the work done over Spring and Summer 2026.
+
+
+
+
+260304_MLM : folder from a tutorial during JPL lab meeting by JPL.
+260416_github_setup.R : connecting project to GitHub.
+260417_data_loading_gbif.R : investigation of P50 values in Quercus species
+    data from this is located in ~/maia1/260417_quercus_data/260419_quercus_occur_gbif
+260417_quercus_data : folder to contain all GBIF files including data from the above cleaning
+260420_eda.qmd : exploring P50 values from Choat et al. (2012)
+    Some interesting maps of the distribution of P50 values globally and in the continental U.S.
+260617_RevBayes_episodic_div_rates : practicing code from RevBayes tutorial based on primate tree
+260622_SEM.R : downloaded SEM tutorial 
+260731_TRY_trait_representation: looking at the table of traits to understand coverage by observation ct and by species
+    More information on the top leaf, root, and floral traits in the database in the vulnerability project word doc
+260807_FIA_exploration: has many files on downloading FIA data, cleaning it, and looking at TRY data in conjunction with FIA species

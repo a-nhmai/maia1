@@ -14,7 +14,6 @@ install.packages("basemaps")
 lib_ls <- c("stringr",
             "dplyr",
             "ggplot2",
-            "lgrdata",
             "readxl",
             "basemaps",
             "maps",
@@ -26,9 +25,8 @@ sapply(lib_ls, library, character.only = TRUE)
 Load in data
 
 ```{r}
-traits_df <- read.csv("~/mai_a/260417_quercus_data/260419_quercus_occur_gbif/querc_traits_gbif260419.csv")
-coords_df <- read.csv("~/mai_a/260417_quercus_data/260419_quercus_occur_gbif/querc_coords_gbif260419.csv")
-data(choat_precipp50)
+traits_df <- read.csv("~/maia1/260417_quercus_data/260419_quercus_occur_gbif/querc_traits_gbif260419.csv")
+coords_df <- read.csv("~/maia1/260417_quercus_data/260419_quercus_occur_gbif/querc_coords_gbif260419.csv")
 choat_df <- read_excel("260417_quercus_data/41586_2012_BFnature11688_MOESM527_ESM.xls")
 choat_quercus <- choat_df |>
                    filter(str_detect(Species, "Quercus"))

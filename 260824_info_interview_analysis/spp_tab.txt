@@ -1,0 +1,9 @@
+"genus" "n"
+"1" "Quercus" 11
+"2" "Other" 6
+"3" "Acer" 4
+"4" "Populus" 3
+"5" "Fraxinus" 2
+"6" "Picea" 2
+"7" "Tilia" 2
+"8" "Ulmus" 2
