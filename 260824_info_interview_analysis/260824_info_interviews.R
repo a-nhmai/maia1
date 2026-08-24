@@ -7,7 +7,8 @@
 lib_ls <- c("dplyr",
             "ggplot2",
             "janitor",
-            "stringr")
+            "stringr",
+            "readxl")
 sapply(lib_ls, library, character.only = TRUE)
 
 #Loading in data

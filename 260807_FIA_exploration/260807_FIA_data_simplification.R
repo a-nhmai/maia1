@@ -9,6 +9,7 @@ library(janitor)
 
 #Data
 fia_rd <- read.csv("~/maia1/260807_FIA_exploration/MN_TREE.csv") #rd = raw data
+                      #NOTE: MN_TREE file is too big to exist on git server
 head(fia_rd)
 
 fia_rd <- clean_names(fia_rd)
