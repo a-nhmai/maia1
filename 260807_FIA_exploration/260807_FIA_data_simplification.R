@@ -3,18 +3,66 @@
 #Anh Mai
 #07 August 2026
 
-library(dplyr)
-#install.packages("janitor")
-library(janitor)
+
+lib_ls <- c("dplyr",
+            "ggplot2",
+            "forcats",
+            "janitor",
+            "stringr")
+
+sapply(lib_ls, library, character.only = TRUE)
 
 #Data
-fia_rd <- read.csv("~/maia1/260807_FIA_exploration/MN_TREE.csv") #rd = raw data
-                      #NOTE: MN_TREE file is too big to exist on git server
-head(fia_rd)
+dir <- "~/Documents/Data/FIA"
+file_name <- list.files("~/Documents/Data/FIA") 
+path <- paste0(dir, "/" , file_name)
+fia_rd <- read.csv(path) #rd = raw data
+                      #NOTE: MN_TREE file is too big to exist on git server but is in zip file in google drive 
 
-fia_rd <- clean_names(fia_rd)
 
-colnames(fia_rd)
+###########
+#FILTERING#
+###########
+
+#Proportion of NAs
+fia_rd |>
+  is.na() |>
+  colSums()/nrow(fia_rd) 
+
+#State variable; is contingent on dir, file_name, and path
+file_name <- list.files("~/Documents/Data/FIA") 
+
+state_name <- str_extract(file_name, "[A-Z]{2}")
+state_name
+
+fia_rd |>
+  mutate(state = state_name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 select_cols <- c("tree",
                  "spcd",
@@ -31,10 +79,6 @@ select_cols <- c("tree",
                  "bhage",
                  "countycd")
 
-fia_rd_2025_sub <- fia_rd |> #sub = subset
-                        filter(invyr == 2025) |>
-                        select(select_cols) 
 
-write.csv(fia_rd_2025_sub, "~/maia1/260807_FIA_exploration/fia_rd_2025_sub.csv")
 
 

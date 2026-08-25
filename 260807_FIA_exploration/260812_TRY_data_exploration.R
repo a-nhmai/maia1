@@ -25,10 +25,13 @@ trait_df <- trait_df_raw |>
                      ObservationID,
                      TraitID,
                      TraitName,
+                     DatasetID,
+                     Dataset,
                      DataID,
                      OriglName,
                      OrigValueStr,
                      OrigUnitStr,
+                     ValueKindName,
                      StdValue,
                      UnitName,
                      Comment) |>
