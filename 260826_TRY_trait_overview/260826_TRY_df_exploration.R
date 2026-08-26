@@ -120,6 +120,7 @@ trait_df_dup |>
 #   - 28 different data ID/traits
 #   - 2311 duplicates
 #   - Leaf area index (LAI) of a single plant was filtered out as it only has one observation
+#   - next to do is figure out the mismatches***
 
 
 
