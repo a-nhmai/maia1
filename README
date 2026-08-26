@@ -4,7 +4,11 @@ This file was created by Anh Mai to organize the work done over Spring and Summe
 
 
 
-
+Functions : contains 3 functions to process FIA data
+      - propNA : calculates the proportion of missing values by columns 
+      - fia_single : reads in single FIA csvs and integrates state and research station information
+      - fia_many : reads in many FIA csvs with the above information
+Data : contains data for both Trait and FIA sources
 260304_MLM : folder from a tutorial during JPL lab meeting by JPL.
 260416_github_setup.R : connecting project to GitHub.
 260417_data_loading_gbif.R : investigation of P50 values in Quercus species
