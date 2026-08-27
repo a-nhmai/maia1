@@ -8,7 +8,20 @@ Functions : contains 3 functions to process FIA data
       - propNA : calculates the proportion of missing values by columns 
       - fia_single : reads in single FIA csvs and integrates state and research station information
       - fia_many : reads in many FIA csvs with the above information
-Data : contains data for both Trait and FIA sources
+Data : contains data for vulnerability project 
+      - FIA
+            - REF_SPECIES.csv : reference for FIA species
+            - selected_FIA.xlsx : selected variables from large FIA datasheets, used for filtering FIA dfs
+      - Trait
+            - Knighton_et_al_2025.xlxs : data from random trees trained on Phylo. Eigenvector Maps found at https://zenodo.org/records/15009207
+            - TRY_angio_trait.csv : TRY dataset that has been cleaned in the below .R files, only angiosperms found in the FIA
+                  - 260807_FIA_exploration > 260812_TRY_data_exploration.R
+                  - 260826_TRY_df_exploration.R
+                  
+                  
+                  
+                  
+                  
 260304_MLM : folder from a tutorial during JPL lab meeting by JPL.
 260416_github_setup.R : connecting project to GitHub.
 260417_data_loading_gbif.R : investigation of P50 values in Quercus species
@@ -18,6 +31,7 @@ Data : contains data for both Trait and FIA sources
     Some interesting maps of the distribution of P50 values globally and in the continental U.S.
 260617_RevBayes_episodic_div_rates : practicing code from RevBayes tutorial based on primate tree
 260622_SEM.R : downloaded SEM tutorial 
-260731_TRY_trait_representation: looking at the table of traits to understand coverage by observation ct and by species
+260731_TRY_trait_representation : looking at the table of traits to understand coverage by observation ct and by species
     More information on the top leaf, root, and floral traits in the database in the vulnerability project word doc
 260807_FIA_exploration: has many files on downloading FIA data, cleaning it, and looking at TRY data in conjunction with FIA species
+260826_TRY_df_exploration.R : thorough cleaning of TRY database data

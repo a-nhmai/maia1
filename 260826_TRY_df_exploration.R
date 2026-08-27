@@ -141,13 +141,13 @@ cleaned_trait_df <- trait_df_cl |>
                                                 paste(comment, "|" , str_extract(trait_df_cl$trait_name, "\\(specific leaf area(.)*")), 
                                                 comment),
                                comment = str_remove(comment, "x"), #cleaning up messy formating
-                               comment = paste0(comment, ". Value Kind Name = ", value_kind_name, "| TRY TraitID = ", trait_id), #storying the measurement kind (i.e. mean, best estimate) in the comment
                                comment = ifelse(str_detect(trait_df_cl$trait_name, "Root length (.)*")  == TRUE, #cleaning up trait name and putting in comment
                                                 paste(comment, str_extract(trait_df_cl$trait_name, "Root length (.)*")), 
                                                 comment),
                                trait_name = fct_recode(trait_name, 
                                                        "Specific root length" = "Root length per root dry mass (specific root length, SRL)")) |> #renaming long name to SRL
-                        select(-c(dataset_id, observation_id, data_id, dataset, trait_id, value_kind_name)) |> 
+                        rename(kind = value_kind_name) |>
+                        select(-c(dataset_id, observation_id, data_id, dataset, trait_id)) |>
                         relocate(spp_name, trait_name, value, unit_name, source, id_dfdo, comment) 
 
 write.csv(cleaned_trait_df, "~/maia1/Data/Trait/TRY_angio_trait.csv")
