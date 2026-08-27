@@ -17,6 +17,7 @@ Data : contains data for vulnerability project
             - TRY_angio_trait.csv : TRY dataset that has been cleaned in the below .R files, only angiosperms found in the FIA
                   - 260807_FIA_exploration > 260812_TRY_data_exploration.R
                   - 260826_TRY_df_exploration.R
+            - Guo_et_al_2022.txt : Imputed data values from Guo et al. (2022), https://www.pnas.org/doi/10.1073/pnas.2026733119#executive-summary-abstract
                   
                   
                   
@@ -35,3 +36,6 @@ Data : contains data for vulnerability project
     More information on the top leaf, root, and floral traits in the database in the vulnerability project word doc
 260807_FIA_exploration: has many files on downloading FIA data, cleaning it, and looking at TRY data in conjunction with FIA species
 260826_TRY_df_exploration.R : thorough cleaning of TRY database data
+260827_Knighton_cleaning.R : cleaning Knighton et al. (2025) imputed data
+260827_Guo_cleaning.R : cleaning the Guo et al. (2022) imputed data
+
