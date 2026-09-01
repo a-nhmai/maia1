@@ -15,8 +15,8 @@ lib_ls <- c("dplyr",
 sapply(lib_ls, library, character.only = TRUE)
 
 #Loading in dfs
-    try_df <- read.delim("~/Documents/Data/260812_TRY_data.txt")
-    try_df2 <- read.delim("~/Documents/Data/260813_TRY_data.txt") #vessel morphology traits that got left out
+    try_df <- read.delim("~/Documents/Data/TRY/260812_TRY_data.txt")
+    try_df2 <- read.delim("~/Documents/Data/TRY/260813_TRY_data.txt") #vessel morphology traits that got left out
     
     try_df <- try_df |> bind_rows(try_df2)
     
@@ -43,5 +43,5 @@ angio_ls <- angio_ls |>
             #unique(try_angio$TraitName)
 
 #Writing clean csv
-write.csv(try_angio, "~/maia1/260807_FIA_exploration/try_angio_clean.csv")
+write.csv(try_angio, "~/maia1/Data/Trait/c_try_angio_clean_v1.csv", row.names = FALSE)
 

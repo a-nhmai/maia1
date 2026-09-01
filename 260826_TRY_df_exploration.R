@@ -20,7 +20,7 @@ lib_ls <- c("dplyr",
 sapply(lib_ls, library, character.only = TRUE)
 
 #Data: loading and initial cleaning--------------------------------
-trait_df_raw <- read.csv("~/maia1/260807_FIA_exploration/try_angio_clean.csv") 
+trait_df_raw <- read.csv("~/maia1/Data/Trait/c_try_angio_clean_v1.csv") 
   #this df was cleaned from maia1/260807_FIA_exploration/260812_TRY_cleaning.R
   #only angiosperms that are listed in REF_SPECIES.csv from the FIA database are included
   #see bottom of file for original code 
@@ -145,12 +145,14 @@ cleaned_trait_df <- trait_df_cl |>
                                                 paste(comment, str_extract(trait_df_cl$trait_name, "Root length (.)*")), 
                                                 comment),
                                trait_name = fct_recode(trait_name, 
-                                                       "Specific root length" = "Root length per root dry mass (specific root length, SRL)")) |> #renaming long name to SRL
-                        rename(kind = value_kind_name) |>
+                                                       "Specific root length" = "Root length per root dry mass (specific root length, SRL)",
+                                                       "SLA" = "Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): undefined if petiole is in- or excluded")) |> #renaming long name to SRL
+                        rename(kind = value_kind_name,
+                               unit = unit_name) |>
                         select(-c(dataset_id, observation_id, data_id, dataset, trait_id)) |>
-                        relocate(spp_name, trait_name, value, unit_name, source, id_dfdo, comment) 
+                        relocate(spp_name, trait_name, value, unit, source, id_dfdo, comment) 
 
-write.csv(cleaned_trait_df, "~/maia1/Data/Trait/TRY_angio_trait.csv")
+write.csv(cleaned_trait_df, "~/maia1/Data/Trait/c_TRY_angio_trait_v2.csv", row.names = FALSE)
 
 #General notes--------------------------------
 
@@ -207,4 +209,4 @@ try_angio <- try_df |>
 #unique(try_angio$TraitName)
 
 #Writing clean csv--------------------------------
-write.csv(try_angio, "~/maia1/260807_FIA_exploration/try_angio_clean.csv")
+write.csv(try_angio, "~/maia1/260807_FIA_exploration/try_angio_clean.csv", row.names = FALSE)

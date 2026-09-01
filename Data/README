@@ -1,2 +1,15 @@
+If the file starts with
+    - c, then the data is clean
+    - r, then the data is raw
+
+Clean Trait Data
+    - c_TRY_angio_traits_v1.csv : subset version of TRY data where 
+        - only angiosperms are selected
+        - relevant columns selected in 260812_TRY_cleaning.R originally
+        - needed traits to be cleaned further
+    - c_TRY_angio_traits_v2.csv : fully cleaned version of above
+        - cleaned in 260826_TRY_df_exploration.R
+        - clean format and trait names
+
 Other data that is cleaned that is not stored here:
 - FIA_combined.csv : stored locally on iMac in Documents>Data>FIA; file size is too large to be supported by GitHub; data from FIA MN_TREE.csv and MD_TREE.csv

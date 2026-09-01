@@ -18,8 +18,8 @@ lapply(lib_ls, library, character.only = TRUE)
 
 #Data: reading in--------------------------------
 
-knighton_rd <- readxl::read_excel("~/maia1/Data/Trait/Knighton_et_al_2025.xlsx")
-fia_spp <- read.csv("~/maia1/Data/FIA/REF_SPECIES.csv") |> select(GENUS, SPECIES, SCIENTIFIC_NAME) |> clean_names()
+knighton_rd <- readxl::read_excel("~/maia1/Data/Trait/r_Knighton_et_al_2025.xlsx")
+fia_spp <- read.csv("~/maia1/Data/FIA/c_REF_SPECIES.csv") |> select(GENUS, SPECIES, SCIENTIFIC_NAME) |> clean_names()
 
 glimpse(knighton_rd)
 glimpse(fia_spp)
@@ -39,9 +39,10 @@ knighton_clean <- knighton_rd |>
                       mutate(unit = NA,
                              unit = ifelse(trait_name == "Rooting Depth maximum", "m", unit),
                              kind = "imputed, random tree with phylogenetic eigenvector maps (PEM)",
-                             source = "Knighton et al. (2025)") 
+                             source = "Knighton et al. (2025)",
+                             comment = NA) 
 
 #CSV: writing CSV--------------------------------
-write.csv(knighton_clean, "~/maia1/Data/Trait/Knighton_et_al_2025_c.csv")
+write.csv(knighton_clean, "~/maia1/Data/Trait/c_Knighton_et_al_2025.csv", row.names = FALSE)
 
 
