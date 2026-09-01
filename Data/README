@@ -10,6 +10,10 @@ Clean Trait Data
     - c_TRY_angio_traits_v2.csv : fully cleaned version of above
         - cleaned in 260826_TRY_df_exploration.R
         - clean format and trait names
+    - c_top30genera_ls.txt : list of the top 30 genera represented in the binded trait df
+        - created in 260901_trait_data_merge.R
 
 Other data that is cleaned that is not stored here:
-- FIA_combined.csv : stored locally on iMac in Documents>Data>FIA; file size is too large to be supported by GitHub; data from FIA MN_TREE.csv and MD_TREE.csv
+- FIA_combined.csv : stored locally on iMac in Documents>Data>FIA; 
+    - file size is too large to be supported by GitHub; 
+    - data from FIA MN_TREE.csv and MD_TREE.csv
