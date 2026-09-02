@@ -38,10 +38,14 @@ angio_ls <- angio_ls |>
                       filter(AccSpeciesName %in% angio_ls2) |>
                       filter(TraitID %in% trait_ls) |>
                       filter(str_detect(OrigValueStr, "[\\d]*[.]{1}")) 
+      try_angio_filt_out <- try_df |>
+                                filter(AccSpeciesName %in% angio_ls2) |>
+                                anti_join(try_angio)
       
       
             #unique(try_angio$TraitName)
 
 #Writing clean csv
 write.csv(try_angio, "~/maia1/Data/Trait/c_try_angio_clean_v1.csv", row.names = FALSE)
+write.csv(try_angio_filt_out, "~/maia1/Data/Trait/c_try_angio_filt_out.csv", row.names = FALSE)
 

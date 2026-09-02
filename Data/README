@@ -12,6 +12,9 @@ Clean Trait Data
         - clean format and trait names
     - c_top30genera_ls.txt : list of the top 30 genera represented in the binded trait df
         - created in 260901_trait_data_merge.R
+    - c_try_angio_filt_out.csv : list of data that was requested from TRY that was not included in v1 one above
+        - categorical traits and some other information associated with observations such as lat/long/alt
+        - was moved to local computer folder since cannot be accessed via GitHub
 
 Other data that is cleaned that is not stored here:
 - FIA_combined.csv : stored locally on iMac in Documents>Data>FIA; 
