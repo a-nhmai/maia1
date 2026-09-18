@@ -42,13 +42,14 @@ n_fia_coverage
 percent_coverage <- n_fia_coverage/dim(morton_check_ls)[1] 
 percent_coverage
 
-fia_morton |>
-  group_by(genus) |>
-  count(InterviewMN_Y) |>
-  filter(InterviewMN_Y == "Y" | n > 9) |>
-  arrange(desc(n)) |>
-  mutate(Mention = ifelse(InterviewMN_Y == "Y", "*", " ")) |>
-  select(-InterviewMN_Y) |>
-  relocate(genus, n) |>
-  rename(n_spp = n) |>
-  knitr::kable()
+genera_ct <- fia_morton |>
+                group_by(genus) |>
+                count(InterviewMN_Y) |>
+                filter(InterviewMN_Y == "Y" | n > 9) |>
+                arrange(desc(n)) |>
+                mutate(Mention = ifelse(InterviewMN_Y == "Y", "*", " ")) |>
+                select(-InterviewMN_Y) |>
+                relocate(genus, n) |>
+                rename(n_spp = n) 
+
+genera_ct[c(-2,-5,-10),2] |> sum() #still 142 angiosperm species with the 10 focal angiosperm genera
