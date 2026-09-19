@@ -53,3 +53,14 @@ genera_ct <- fia_morton |>
                 rename(n_spp = n) 
 
 genera_ct[c(-2,-5,-10),2] |> sum() #still 142 angiosperm species with the 10 focal angiosperm genera
+
+
+#Species and genera of priority
+genera_highlighted <- genera_ct[1]
+spp_highlighted <- fia_morton$scientific_name 
+
+write.csv(spp_highlighted, "~/maia1/Data/Cleaning/spp_highlighted.csv", row.names = F)
+write.csv(genera_highlighted, "~/maia1/Data/Cleaning/genera_highlighted.csv", row.names = F)
+
+
+

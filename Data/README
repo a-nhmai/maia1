@@ -10,6 +10,7 @@ Clean Trait Data
     - c_TRY_angio_traits_v2.csv : fully cleaned version of above
         - cleaned in 260826_TRY_df_exploration.R
         - clean format and trait names
+        - in the MAIN column order and format !!
     - c_top30genera_ls.txt : list of the top 30 genera represented in the binded trait df
         - created in 260901_trait_data_merge.R
     - c_try_angio_filt_out.csv : list of data that was requested from TRY that was not included in v1 one above
