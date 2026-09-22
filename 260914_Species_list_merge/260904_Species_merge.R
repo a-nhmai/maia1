@@ -20,6 +20,7 @@ fia_spp <- read.csv(paste0(data_dir, "FIA/c_REF_SPECIES.csv")) |> select(SCIENTI
 
 #Morton
 morton_check_ls <- read.csv(paste0(data_dir, "Morton/The Checklist of U.S. Trees - Checklist of U.S. Trees.csv")) |> select(Species.Name)
+    #https://docs.google.com/spreadsheets/d/1n-wofRuswvfJaghAzcN-rd7l3uCM3t1UjF5y6E-_cbA/edit?gid=846368255#gid=846368255
 
 #Interview
 interview_ls <- read.delim("~/maia1/260824_info_interview_analysis/spp_tab.txt", sep = " ")
@@ -45,19 +46,21 @@ percent_coverage
 genera_ct <- fia_morton |>
                 group_by(genus) |>
                 count(InterviewMN_Y) |>
-                filter(InterviewMN_Y == "Y" | n > 9) |>
+                filter(InterviewMN_Y == "Y" | n > 9) |> #genera associated with the interview OR having more than 10 species represented in the priority list
                 arrange(desc(n)) |>
                 mutate(Mention = ifelse(InterviewMN_Y == "Y", "*", " ")) |>
                 select(-InterviewMN_Y) |>
                 relocate(genus, n) |>
                 rename(n_spp = n) 
+    #this however has some gymnosperm species so filtered below
 
 genera_ct[c(-2,-5,-10),2] |> sum() #still 142 angiosperm species with the 10 focal angiosperm genera
 
 
 #Species and genera of priority
-genera_highlighted <- genera_ct[1]
-spp_highlighted <- fia_morton$scientific_name 
+genera_highlighted <- genera_ct[c(-2,-5,-10),1] |> unlist(use.names = FALSE) #10 focal genera
+spp_highlighted <- fia_morton |>                                            #and the associated species
+                    filter(genus %in% genera_highlighted) #146 species in consdieration
 
 write.csv(spp_highlighted, "~/maia1/Data/Cleaning/spp_highlighted.csv", row.names = F)
 write.csv(genera_highlighted, "~/maia1/Data/Cleaning/genera_highlighted.csv", row.names = F)
