@@ -79,15 +79,39 @@ trait_ct <- df_filt |> #df where rows = species and columns = traits and cells =
   pivot_wider(names_from = trait_name,
               values_from = n_trait_ct) 
 
-summary(trait_ct) #validating NAs look right
 
-NA_row_num <- nrow(trait_ct) #number of species 
+#Filtering for only the traits I am interested in currently......................................
+trait_names_ls <- colnames(trait_ct)
 
-NA_prop <- colSums(is.na(trait_ct[-1])) |> #proportion of NAs per trait in descending order at species level
+trait_names_ls <- trait_names_ls[c(2,3,4,5,8,9,10,12,18,21,22,23,24,25,26,29,31,32,36)] #selecting traits
+
+trait_ct_filt <- trait_ct |> 
+                      select(spp_name, trait_names_ls)
+                    
+NA_row_num <- nrow(trait_ct_filt) #number of species 
+
+summary(trait_ct_filt) #validating NAs look right
+
+#looking at NAs by traits......................................
+NA_prop_traits <- colSums(is.na(trait_ct_filt[-1])) |> #proportion of NAs per trait in descending order at species level
   as.data.frame() |>
-  rename(propNA = `colSums(is.na(trait_ct[-1]))`) |>
+  rename(propNA = `colSums(is.na(trait_ct_filt[-1]))`) |>
   mutate(propNA = round(propNA/NA_row_num, 2)) |>
   arrange(desc(propNA))
+
+NA_prop_traits 
+
+
+#looking at NAs by species......................................
+NA_prop_spp <- rowSums((is.na(trait_ct_filt[-1]))) |>
+  as.data.frame() |>
+  bind_cols(trait_ct[1]) |> relocate(spp_name) |>
+  rename(propNA = `rowSums((is.na(trait_ct_filt[-1])))`) |>
+  mutate(propNA = round(propNA/NA_row_num, 2)) |>
+  arrange(desc(propNA))
+  
+NA_prop_spp
+  
 
 #To do still
 #look for duplicates due to addition of carterau et al 2025
